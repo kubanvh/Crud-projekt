@@ -210,7 +210,7 @@ warning 6013: The table/view 'crudDb.dbo.userTb' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="crudDbEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="crudDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CustomerTb" EntityType="Self.CustomerTb" />
           <EntitySet Name="OrderProductTb" EntityType="Self.OrderProductTb" />
           <EntitySet Name="OrdersTb" EntityType="Self.OrdersTb" />
@@ -234,7 +234,7 @@ warning 6013: The table/view 'crudDb.dbo.userTb' does not have a primary key def
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="crudDbModelStoreContainer" CdmEntityContainer="crudDbEntities1">
+        <EntityContainerMapping StorageEntityContainer="crudDbModelStoreContainer" CdmEntityContainer="crudDbEntities">
           <EntitySetMapping Name="CustomerTb">
             <EntityTypeMapping TypeName="crudDbModel.CustomerTb">
               <MappingFragment StoreEntitySet="CustomerTb">

@@ -21,6 +21,7 @@
             <Setter Property="Width" Value="40"/>
             <Setter Property="Height" Value="auto"/>
         </Style>
+        <CollectionViewSource x:Key="productTbOrderProductTbViewSource" Source="{Binding OrderProductTb, Source={StaticResource productTbViewSource}}"/>
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="{StaticResource DeleteProduct}" Executed="DeleteProductHandler"/>
@@ -34,34 +35,13 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Margin="22,302,393,0" Height="36" VerticalAlignment="Top" Background="Gainsboro" DataContext="{StaticResource productTbViewSource}" Grid.Row="2">
-            <Button x:Name="btnAddProduct" Content="Add" Command="{StaticResource AddProduct}" FontSize="11" Width="80" Style="{StaticResource NavButton}"/>
-            <Button x:Name="btnUpdate" Content="Update" Command="{StaticResource UpdateProduct}" FontSize="11" Width="80" Style="{StaticResource NavButton}"/>
-            <Button x:Name="btnCancel" Content="Cancel" Command="{StaticResource CancelProduct}" FontSize="11" Width="80" Style="{StaticResource NavButton}"/>
-            <Button x:Name="btnDeleteProduct" Content="Delete" Command="{StaticResource DeleteProduct}" FontSize="11" Width="120" Style="{StaticResource NavButton}"/>
+        <StackPanel Orientation="Horizontal" Margin="21,194,434,0" Height="36" VerticalAlignment="Top" Background="Gainsboro" DataContext="{StaticResource productTbViewSource}" Grid.Row="2">
+            <Button x:Name="btnAddProduct" Content="Add" Command="{StaticResource AddProduct}" FontSize="11" Width="80" Style="{StaticResource NavButton}" Click="btnAddProduct_Click"/>
+            <Button x:Name="btnUpdate" Content="Update" Command="{StaticResource UpdateProduct}" FontSize="11" Width="80" Style="{StaticResource NavButton}" Click="btnUpdate_Click"/>
+            <Button x:Name="btnCancel" Content="Cancel" Command="{StaticResource CancelProduct}" FontSize="11" Width="80" Style="{StaticResource NavButton}" Click="btnCancel_Click"/>
+            <Button x:Name="btnDeleteProduct" Content="Delete" Command="{StaticResource DeleteProduct}" FontSize="11" Width="80" Style="{StaticResource NavButton}" Click="btnDeleteProduct_Click"/>
         </StackPanel>
-        <Grid x:Name="grid1" HorizontalAlignment="Left" Margin="105,95,0,0" Grid.Row="2" VerticalAlignment="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Label Content="Brand:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-            <TextBox x:Name="brandTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding Brand, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
-            <Label Content="Category:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="1" VerticalAlignment="Center"/>
-            <TextBox x:Name="categoryTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="1" Text="{Binding Category, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
-            <Label Content="Price:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="2" VerticalAlignment="Center"/>
-            <TextBox x:Name="priceTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="2" Text="{Binding Price, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
-            <Label Content="Product Name:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="4" VerticalAlignment="Center"/>
-            <TextBox x:Name="productNameTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="4" Text="{Binding ProductName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
-        </Grid>
-        <DataGrid x:Name="productTbDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="382,66,10,153" Grid.RowSpan="3" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid x:Name="productTbDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="364,32,28,187" Grid.RowSpan="3" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="brandColumn" Binding="{Binding Brand}" Header="Brand" Width="SizeToHeader"/>
                 <DataGridTextColumn x:Name="categoryColumn" Binding="{Binding Category}" Header="Category" Width="SizeToHeader"/>
@@ -70,6 +50,17 @@
                 <DataGridTextColumn x:Name="productNameColumn" Binding="{Binding ProductName}" Header="Product Name" Width="SizeToHeader"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Label Content="PRODUCT ID:" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,32,0,0" Grid.Row="2" VerticalAlignment="Top" Width="110"/>
+        <Label Content="PRODUCT NAME:" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,63,0,0" Grid.Row="2" VerticalAlignment="Top" Width="110"/>
+        <Label Content="BRAND:" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,94,0,0" Grid.Row="2" VerticalAlignment="Top" Width="110"/>
+        <Label Content="CATEGORY:" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,125,0,0" Grid.Row="2" VerticalAlignment="Top" Width="110"/>
+        <Label Content="PRICE:" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="22,156,0,0" Grid.Row="2" VerticalAlignment="Top" Width="110"/>
+        <TextBox x:Name="add_productId" HorizontalAlignment="Left" Height="23" Margin="183,35,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="add_productName" HorizontalAlignment="Left" Height="23" Margin="183,66,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="add_productBrand" HorizontalAlignment="Left" Height="23" Margin="183,98,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="add_productCategory" HorizontalAlignment="Left" Height="23" Margin="183,128,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="add_productPrice" HorizontalAlignment="Left" Height="23" Margin="183,159,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <GroupBox Header="GroupBox" HorizontalAlignment="Left" Height="179" Margin="21,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="322"/>
     </Grid>
 
 </Window>

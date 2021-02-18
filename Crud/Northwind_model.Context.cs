@@ -13,10 +13,10 @@ namespace Crud
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class crudDbEntities1 : DbContext
+    public partial class crudDbEntities : DbContext
     {
-        public crudDbEntities1()
-            : base("name=crudDbEntities1")
+        public crudDbEntities()
+            : base("name=crudDbEntities")
         {
         }
     
