@@ -23,7 +23,7 @@ namespace Crud
         {
             InitializeComponent();
         }
-
+        // sprawdzanie czy podany uzytkownik podaje wlasciwe haslo i login
         private void btnLogIn_Click(object sender, RoutedEventArgs e)
         {
             SqlConnection sqlCon = new SqlConnection(@"Data Source=localhost\SQLEXPRESS; Initial Catalog = crudDb; Integrated Security=true;");
@@ -45,7 +45,7 @@ namespace Crud
                 }
                 else
                 {
-                    MessageBox.Show("Username or password is incorrect");
+                    MessageBox.Show("Username or password is incorrect/sprobuj login:admin password:admin");
                 }
             }
             catch (Exception ex)

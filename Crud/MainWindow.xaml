@@ -84,7 +84,7 @@
             <Button x:Name="btnDeleteProduct" Content="Delete" Command="{StaticResource DeleteProduct}" FontSize="11" Width="80" Style="{StaticResource NavButton}" Click="btnDeleteProduct_Click"/>
         </StackPanel>
             </Grid>
-        <DataGrid x:Name="productTbDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="364,32,28,187" Grid.RowSpan="3" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid x:Name="productTbDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource productTbViewSource}}" Margin="364,32,28,187" Grid.RowSpan="3" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <!--<DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>

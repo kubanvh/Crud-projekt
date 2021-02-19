@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Data;
+using System.Collections.ObjectModel;
 
 namespace Crud
 {
@@ -23,7 +24,7 @@ namespace Crud
     /// </summary>
     public partial class MainWindow : Window
     {
-        crudDbEntities contex = new crudDbEntities();
+        crudDbEntities context = new crudDbEntities();
         CollectionViewSource productViewSource;
         //CollectionViewSource ordersViewSource;
         //CollectionViewSource productViewSource;
@@ -35,7 +36,6 @@ namespace Crud
             InitializeComponent();
             productViewSource = ((CollectionViewSource)(FindResource("productTbViewSource")));
             //orderProductViewSource = ((CollectionViewSource)(FindResource("orderProductTbViewSource")));
-
             //ordersViewSource = ((CollectionViewSource)(FindResource("ordersTbViewSource")));
             DataContext = this;
 
@@ -43,18 +43,17 @@ namespace Crud
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-            contex.ProductTb.Load();
-            productViewSource.Source = contex.ProductTb.Local;
+            context.ProductTb.Load();
+            productViewSource.Source = context.ProductTb.Local;
 
         }
         private void DeleteProductHandler(object sender, System.EventArgs e)
         {
-            //var productToDelete = (sender as FrameworkElement).DataContext as ProductTb;
-            //contex.ProductTb.Remove(productToDelete);
-            //contex.SaveChanges();
+            //var productToDelete = (sender as FrameworkElement).Datacontextt as ProductTb;
+            //context.ProductTb.Remove(productToDelete);
+            //context.SaveChanges();
 
-            //foreach(var prod in contex.ProductTb)
+            //foreach(var prod in context.ProductTb)
             //{
             //   if(prod.ProductID == prod.ProductID)
             //    {
@@ -64,8 +63,8 @@ namespace Crud
         }
         private void UpdateProductHandler(object sender, System.EventArgs e)
         {
-            //selectedProduct = (sender as FrameworkElement).DataContext as ProductTb;
-            //productTbDataGrid.DataContext = selectedProduct;
+            //selectedProduct = (sender as FrameworkElement).Datacontextt as ProductTb;
+            //productTbDataGrid.Datacontextt = selectedProduct;
             //ProductTb newProductTb = new ProductTb()
             //{
             //    Brand = add_productBrand.Text,
@@ -74,7 +73,7 @@ namespace Crud
             //    ProductName = add_productName.Text,
             //    Price = decimal.Parse(add_productPrice.Text)
             //};
-            //int len = contex.CustomerTb.Local.Count();
+            //int len = context.CustomerTb.Local.Count();
             //int pos = len;
             //for(int i = 0; i<len; ++i)
             //{
@@ -83,10 +82,10 @@ namespace Crud
         }
         private void AddProductHandler(object sender, System.EventArgs e)
         {
-            //contex.ProductTb.Add(NewProduct);
-            //contex.SaveChanges();
+            //context.ProductTb.Add(NewProduct);
+            //context.SaveChanges();
             //NewProduct = new ProductTb();
-            //newProductGrid.DataContext = NewProduct;
+            //newProductGrid.Datacontextt = NewProduct;
 
         }
         private void CancelProductHandler(object sender, System.EventArgs e)
@@ -97,7 +96,7 @@ namespace Crud
             add_productName.Text = "";
             add_productPrice.Text = "";
         }
-
+        //Add product to database 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -114,14 +113,45 @@ namespace Crud
                 {
                 }
                 sqlCon1.Close();
-                
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            productTbDataGrid.ItemsSource = null;
+            context.ProductTb.Load();
+            productTbDataGrid.ItemsSource = context.ProductTb.Local;
+            //productTbDataGrid.UpdateLayout();
+            //productTbDataGrid.Visibility = Visibility.Visible;
+            //productViewSource.View.Refresh();
         }
+        //Update product from Database
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            SqlConnection sqlCon1 = new SqlConnection(@"Data Source=localhost\SQLEXPRESS; Initial Catalog = crudDb; Integrated Security=true;");
+            try
+            {
+                if (sqlCon1.State == ConnectionState.Closed)
+                    sqlCon1.Open();
+                string query = "UPDATE ProductTb SET ProductID='" + this.add_productId.Text + "',ProductName='" + this.add_productName.Text + "',Brand='" + this.add_productBrand.Text + "',Category='" + this.add_productCategory.Text + "',Price='" + this.add_productPrice.Text + "' WHERE ProductID= '" + this.add_productId.Text + "';";
+                SqlCommand sqlCmd1 = new SqlCommand(query, sqlCon1);
+                SqlDataReader sqlDataReader1;
+                sqlDataReader1 = sqlCmd1.ExecuteReader();
+                MessageBox.Show("Product updated");
+                while (sqlDataReader1.Read())
+                {
+                }
+                sqlCon1.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            productTbDataGrid.ItemsSource = null;
+            productTbDataGrid.Items.Refresh();
 
+        }
+        //Delete product from Database
         private void btnDeleteProduct_Click(object sender, RoutedEventArgs e)
         {
             SqlConnection sqlCon1 = new SqlConnection(@"Data Source=localhost\SQLEXPRESS; Initial Catalog = crudDb; Integrated Security=true;");
@@ -142,29 +172,6 @@ namespace Crud
                 catch(Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void btnUpdate_Click(object sender, RoutedEventArgs e)
-        {
-            SqlConnection sqlCon1 = new SqlConnection(@"Data Source=localhost\SQLEXPRESS; Initial Catalog = crudDb; Integrated Security=true;");
-            try
-            {
-                if (sqlCon1.State == ConnectionState.Closed)
-                    sqlCon1.Open();
-                string query = "UPDATE ProductTb set ProductID='" + this.add_productId.Text + "','" + this.add_productName.Text + "','" + this.add_productBrand.Text + "','" + this.add_productCategory.Text + "','" + this.add_productPrice.Text + "';";
-                SqlCommand sqlCmd1 = new SqlCommand(query, sqlCon1);
-                SqlDataReader sqlDataReader1;
-                sqlDataReader1 = sqlCmd1.ExecuteReader();
-                MessageBox.Show("Product updated");
-                while (sqlDataReader1.Read())
-                {
-                }
-                sqlCon1.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
         }
     }
