@@ -121,6 +121,52 @@ namespace Crud
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void btnDeleteProduct_Click(object sender, RoutedEventArgs e)
+        {
+            SqlConnection sqlCon1 = new SqlConnection(@"Data Source=localhost\SQLEXPRESS; Initial Catalog = crudDb; Integrated Security=true;");
+            try
+            {
+                if (sqlCon1.State == ConnectionState.Closed)
+                    sqlCon1.Open();
+                string query = "DELETE FROM ProductTb where ProductID='" + this.add_productId.Text + "';";
+                SqlCommand sqlCmd1 = new SqlCommand(query, sqlCon1);
+                SqlDataReader sqlDataReader1;
+                sqlDataReader1 = sqlCmd1.ExecuteReader();
+                MessageBox.Show("Product removed  database");
+                while (sqlDataReader1.Read())
+                {
+                }
+                sqlCon1.Close();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            SqlConnection sqlCon1 = new SqlConnection(@"Data Source=localhost\SQLEXPRESS; Initial Catalog = crudDb; Integrated Security=true;");
+            try
+            {
+                if (sqlCon1.State == ConnectionState.Closed)
+                    sqlCon1.Open();
+                string query = "UPDATE ProductTb set ProductID='" + this.add_productId.Text + "','" + this.add_productName.Text + "','" + this.add_productBrand.Text + "','" + this.add_productCategory.Text + "','" + this.add_productPrice.Text + "';";
+                SqlCommand sqlCmd1 = new SqlCommand(query, sqlCon1);
+                SqlDataReader sqlDataReader1;
+                sqlDataReader1 = sqlCmd1.ExecuteReader();
+                MessageBox.Show("Product updated");
+                while (sqlDataReader1.Read())
+                {
+                }
+                sqlCon1.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
 
@@ -138,11 +184,6 @@ namespace Crud
 
 
 //        private void btnUpdate_Click(object sender, RoutedEventArgs e)
-//        {
-
-//        }
-
-//        private void btnCancel_Click(object sender, RoutedEventArgs e)
 //        {
 
 //        }

@@ -79,9 +79,9 @@
         <GroupBox Header="Add product" HorizontalAlignment="Left" Height="179" Margin="21,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="322"/>
         <StackPanel Orientation="Horizontal" Margin="21,194,434,0" Height="36" VerticalAlignment="Top" Background="Gainsboro" DataContext="{StaticResource productTbViewSource}" Grid.Row="2">
             <Button x:Name="btnAddProduct" Content="Add" Command="{StaticResource AddProduct}" FontSize="11" Width="80" Style="{StaticResource NavButton}" Click="btnAddProduct_Click"/>
-            <Button x:Name="btnUpdate" Content="Update" Command="{StaticResource UpdateProduct}" FontSize="11" Width="80" Style="{StaticResource NavButton}"/>
+            <Button x:Name="btnUpdate" Content="Update" Command="{StaticResource UpdateProduct}" FontSize="11" Width="80" Style="{StaticResource NavButton}" Click="btnUpdate_Click"/>
             <Button x:Name="btnCancel" Content="Cancel" Command="{StaticResource CancelProduct}" FontSize="11" Width="80" Style="{StaticResource NavButton}"/>
-            <Button x:Name="btnDeleteProduct" Content="Delete" Command="{StaticResource DeleteProduct}" FontSize="11" Width="80" Style="{StaticResource NavButton}"/>
+            <Button x:Name="btnDeleteProduct" Content="Delete" Command="{StaticResource DeleteProduct}" FontSize="11" Width="80" Style="{StaticResource NavButton}" Click="btnDeleteProduct_Click"/>
         </StackPanel>
             </Grid>
         <DataGrid x:Name="productTbDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="364,32,28,187" Grid.RowSpan="3" RowDetailsVisibilityMode="VisibleWhenSelected">
